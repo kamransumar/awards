@@ -60,14 +60,12 @@ def new_project(request):
     return render(request,'new_project.html',{"form":form})
 
 def directory(request):
-    date = dt.date.today()
     current_user = request.user
     profile =Profile.objects.get(username=current_user)
 
     winners=Project.objects.all()
-    caraousel = Project.objects.get(id=8)
 
-    return render(request,'directory.html',{"winners":winners,"profile":profile,"caraousel":caraousel,"date":date})
+    return render(request,'directory.html',{"winners":winners,"profile":profile})
 
 def profile(request):
     current_user = request.user
@@ -121,11 +119,7 @@ def site(request,site_id):
         project.creativity = total_creativity
         project.content = total_content
         project.overall_score = overall_score
-
         project.save()
-
-
-
     except:
         return None
 
@@ -140,4 +134,4 @@ def site(request,site_id):
     else:
         form = RatingForm()
 
-   
+    return render(request,'site.html',{"project":project,"profile":profile,"ratings":ratings,"form":form})
