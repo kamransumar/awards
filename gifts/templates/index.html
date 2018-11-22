@@ -1,0 +1,158 @@
+{% extends 'base.html' %} {% load bootstrap3 %} {% load static %} {% load
+staticfiles %} {% block styles%} {% bootstrap_css %}
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
+  integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+  crossorigin="anonymous"
+/>
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}" /> {%endblock %}
+{%block content %}
+
+<div class="carousel-inner">
+  <div class="landingpage">
+    <img src="{{caraousel.landing_page.url}}" class="landingpage-img" />
+    <div class="time">
+      <p><span class="bold">Site of the day </span> {{ date }}</p>
+    </div>
+
+    <div class="header">
+      <h1>{{ caraousel.title }}</h1>
+    </div>
+    <div class="page-body">
+      <p>
+        BY
+        <span style="color:#49c5b6;text-transform:uppercase;">{{
+          caraousel.username
+        }}</span>
+        FROM <span class="bold">{{ caraousel.country }}</span> WITH 0.75
+      </p>
+    </div>
+
+    <div class="middle">
+      <div class="circle" id="circle-a">
+        <strong></strong>
+        <p class="rating">DESIGN</p>
+      </div>
+      <div class="circle" id="circle-b">
+        <strong></strong>
+        <p class="rating">USABILITY</p>
+      </div>
+      <div class="circle" id="circle-c">
+        <strong></strong>
+        <p class="rating">CREATIVITY</p>
+      </div>
+      <div class="circle" id="circle-d">
+        <strong></strong>
+        <p class="rating">CONTENT</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container headers">
+  <h4 style="float:left;">
+    <span class="bold">Sites of the Day</span> Previous Winners
+  </h4>
+</div>
+<div class="pages">
+  <div class="row">
+    {% for winner in winners %}
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <div class="card" style="width: 40.2rem;">
+        <img
+          class="card-img-top img-responsive"
+          src="{{winner.landing_page.url}}"
+          alt="Card image cap"
+          responsive
+        />
+        <div class="card-body">
+          <h5 class="card-title" style="line-height:28px;">
+            {{ winner.title }}
+          </h5>
+          <p class="card-text">
+            From {{ winner.country
+            }}<span class="date">{{ winner.post_date }}</span>
+          </p>
+        </div>
+        <div class="card-footer ">
+          <div class="user-image">
+            <img
+              src="{{winner.avatar.url}}"
+              class="gallery-image"
+              alt=""
+              width="8"
+              height="8"
+            />
+            <p
+              style="font-size: 13px; font-weight: lighter;margin:auto; padding:2px;text-transform: uppercase;"
+            >
+              {{ winner.username }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="container headers">
+  <h4><span class="bold">Nominees</span> We need your vote!</h4>
+</div>
+
+<div class="container headers">
+  <h4>
+    <span class="bold">Directory</span> Find the Best Digital Agencies &
+    Professionals
+  </h4>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.1.3/circle-progress.min.js"></script>
+
+<script>
+  var progressBarOptions = {
+    startAngle: -1.55,
+    size: 100,
+    value: 0.75,
+    fill: {
+      color: "Chocolate"
+    }
+  };
+  $(".circle")
+    .circleProgress(progressBarOptions)
+    .on("circle-animation-progress", function(event, progress, stepValue) {
+      $(this)
+        .find("strong")
+        .text(String(stepValue.toFixed(2)));
+    });
+  $("#circle-b").circleProgress({
+    value: 0.45,
+    fill: {
+      color: "Khaki"
+    }
+  });
+  $("#circle-c").circleProgress({
+    value: 0.82,
+    fill: {
+      color: "DarkTurquoise"
+    }
+  });
+  $("#circle-d").circleProgress({
+    value: 0.52,
+    fill: {
+      color: "SteelBlue"
+    }
+  });
+</script>
+
+{% endblock %}
